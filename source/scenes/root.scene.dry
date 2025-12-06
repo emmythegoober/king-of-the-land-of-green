@@ -6,8 +6,7 @@ go-to: post_event if started = 1; start_menu if started = 0
 new-page: true
 go-to: start_menu_2
 
-= Night of Destiny: An Alternate History
-
+= King in the Land of Green: An Alterante History
 @start_menu_2
 
 - @start: Start game
@@ -21,8 +20,8 @@ on-arrival: {!
 Q.started = 1;
 // time elapsed (in months)
 Q.time = 1;
-Q.year = 1963;
-Q.month = 1;
+Q.year = 1985;
+Q.month = 3;
 
 // how many actions have been taken this month?
 Q.month_actions = 0;
@@ -38,7 +37,7 @@ Q.use_decimals = 0;
 
 // elections are not on a timer, but rather there is an indicator for whether you're in an electoral cycle.
 Q.in_election = 1;
-Q.next_election_year = 1965;
+Q.next_election_year = 1989;
 Q.next_election_month = 10;
 Q.next_election_time = 5;
 
@@ -56,14 +55,14 @@ Q.dissent = 0.20;
 Q.dissent_percent = 20;
 
 // factions
-Q.factions = ['varguist', 'labor', 'reformer', 'unaligned'];
+Q.factions = ['centrao', 'conservative', 'reformer', 'unaligned'];
 // should this be normalized to 100%?
-Q.varguist_strength = 35;
-Q.varguist_dissent = 28;
-Q.labor_strength = 30;
-Q.labor_dissent = 40;
-Q.reformist_strength = 25;
-Q.reformist_dissent = 0;
+Q.centrao_strength = 35;
+Q.centrao_dissent = 28;
+Q.conservative_strength = 30;
+Q.conservative_dissent = 40;
+Q.reformer_strength = 25;
+Q.reformer_dissent = 0;
 Q.unaligned_strength = 15;
 Q.unaligned_dissent = 25;
 
@@ -73,8 +72,6 @@ Q.centrists_resign = 0;
 Q.left_split = 0;
 Q.reformists_resigned = 0;
 
-// has santiago fallen?
-santiago_falls = 0;
 
 // forpol
 Q.american_support = 50;
@@ -85,16 +82,16 @@ Q.latam_support = 50;
 Q.pcb_banned = 1;
 
 // inter-party relations
-Q.psd_relation = 40;
-Q.udn_relation = 15;
-Q.psp_relation = 30;
-Q.pdc_relation = 20;
+Q.pds_relation = 40;
+Q.pdt_relation = 15;
+Q.ptb_relation = 30;
+Q.pt_relation = 20;
 Q.ptn_relation = 20;
 Q.prp_relation = 10;
 
-Q.psd_leader = "Kubitschek";
-Q.udn_leader = "Lacerda";
-Q.psp_leader = "Adhemar";
+Q.pds_leader = "Kubitschek";
+Q.pdt_leader = "Lacerda";
+Q.ptb_leader = "Adhemar";
 Q.prp_leader = "Salgado";
 
 // hey, did goulart flee?
@@ -161,86 +158,76 @@ Q.economic_expansion = 0;
 
 
 Q.classes = ['workers', 'business', 'middle', 'rural', 'protestant', 'immigrants'];
-Q.parties = ['ptb', 'psd', 'udn', 'psp', 'pdc', 'ptn', 'prp', 'other'];
+Q.parties = ['pmdb', 'pds', 'pdt', 'ptb', 'pt', 'ptn', 'prp', 'other'];
 
 // Support for party by social group
 // they don't have to sum to 100 since the electoral calculations will be normalized.
-Q.workers_ptb = 75;
-Q.workers_psd = 10;
-Q.workers_udn = 5;
-Q.workers_psp = 5;
-Q.workers_pdc = 1;
+Q.workers_pmdb = 75;
+Q.workers_pds = 10;
+Q.workers_pdt = 5;
+Q.workers_ptb = 5;
+Q.workers_pt = 1;
 Q.workers_ptn = 2;
 Q.workers_prp = 1;
 Q.workers_other = 1;
 
-Q.business_ptb = 15;
-Q.business_psd = 35;
-Q.business_udn = 45;
-Q.business_psp = 5;
-Q.business_pdc = 1;
+Q.business_pmdb = 15;
+Q.business_pds = 35;
+Q.business_pdt = 45;
+Q.business_ptb = 5;
+Q.business_pt = 1;
 Q.business_ptn = 5;
 Q.business_prp = 1;
 Q.business_other = 5;
 
-Q.middle_ptb = 30;
-Q.middle_psd = 50;
-Q.middle_udn = 10;
-Q.middle_psp = 5;
-Q.middle_pdc = 5;
+Q.middle_pmdb = 30;
+Q.middle_pds = 50;
+Q.middle_pdt = 10;
+Q.middle_ptb = 5;
+Q.middle_pt = 5;
 Q.middle_ptn = 5;
 Q.middle_prp = 1;
 Q.middle_other = 1;
 
-Q.rural_ptb = 10;
-Q.rural_psd = 10;
-Q.rural_udn = 60;
-Q.rural_psp= 1;
-Q.rural_pdc = 5;
-Q.rural_ptn = 10;
-Q.rural_prp = 3;
+Q.rural_pmdb = 10;
+Q.rural_pds = 10;
+Q.rural_pdt = 60;
+Q.rural_ptb= 1;
+Q.rural_pt = 5;
 Q.rural_other = 2;
 
-Q.protestant_ptb = 5;
-Q.protestant_psd = 15;
-Q.protestant_udn = 50;
-Q.protestant_psp = 10;
-Q.protestant_pdc = 10;
-Q.protestant_ptn = 12;
-Q.protestant_prp = 3;
+Q.protestant_pmdb = 5;
+Q.protestant_pds = 15;
+Q.protestant_pdt = 50;
+Q.protestant_ptb = 10;
+Q.protestant_pt = 10;
 Q.protestant_other = 5;
 
-Q.immigrants_ptb = 50;
-Q.immigrants_psd = 20;
-Q.immigrants_udn = 10;
-Q.immigrants_psp = 5;
-Q.immigrants_pdc = 2;
-Q.immigrants_ptn = 5;
-Q.immigrants_prp = 3;
+Q.immigrants_pmdb = 50;
+Q.immigrants_pds = 20;
+Q.immigrants_pdt = 10;
+Q.immigrants_ptb = 5;
+Q.immigrants_pt = 2;
 Q.immigrants_other = 5;
 
 
 // Current Câmara dos Deputados composition
 // % of CD in Jan 1963
 // source: wikipedia
-Q.ptb_cd = 25;
-Q.psd_cd = 30;
-Q.udn_cd = 22;
-Q.psp_cd = 5;
-Q.pdc_cd = 4;
-Q.ptn_cd = 2;
-Q.prp_cd = 1;
+Q.pmdb_cd = 25;
+Q.pds_cd = 30;
+Q.pdt_cd = 22;
+Q.ptb_cd = 5;
+Q.pt_cd = 7;
 Q.other_cd = 11;
 
 
 // diff from prev
-Q.old_ptb_cd = 25;
-Q.old_psd_cd = 30;
-Q.old_udn_cd = 22;
-Q.old_psp_cd = 5;
-Q.old_pdc_cd = 4;
-Q.old_ptn_cd = 2;
-Q.old_prp_cd = 1;
+Q.old_pmdb_cd = 25;
+Q.old_pds_cd = 30;
+Q.old_pdt_cd = 22;
+Q.old_ptb_cd = 5;
+Q.old_pt_cd = 7;
 Q.old_other_cd = 11;
 
 
@@ -255,24 +242,24 @@ Q.economic_records = [];
 Q.military_loyalty = 0.45
 
 // State of the government
-Q.president = "Goulart";
-Q.president_party = "PTB";
+Q.president = "Sarney";
+Q.president_party = "PMDB";
 Q.vice_president = "None";
 Q.vice_president_party = 'N/A';
-Q.ptb_in_presidency = 1;
-Q.psd_in_presidency = 0;
-Q.udn_in_presidency = 0;
-Q.psp_in_presidency = 0;
-Q.pdc_in_presidency = 0;
+Q.pmdb_in_presidency = 1;
+Q.pds_in_presidency = 0;
+Q.pdt_in_presidency = 0;
+Q.ptb_in_presidency = 0;
+Q.pt_in_presidency = 0;
 Q.ptn_in_presidency = 0;
 Q.prp_in_presidency = 0;
 Q.military_presidency = 0;
 
+Q.pmdb_in_vice_presidency = 0;
+Q.pds_in_vice_presidency = 0;
+Q.pdt_in_vice_presidency = 0;
 Q.ptb_in_vice_presidency = 0;
-Q.psd_in_vice_presidency = 0;
-Q.udn_in_vice_presidency = 0;
-Q.psp_in_vice_presidency = 0;
-Q.pdc_in_vice_presidency = 0;
+Q.pt_in_vice_presidency = 0;
 Q.ptn_in_vice_presidency = 0;
 Q.prp_in_vice_presidency = 0;
 
@@ -280,21 +267,21 @@ Q.prp_in_vice_presidency = 0;
 // starting with the 4th Marx cabinet https://en.wikipedia.org/wiki/Fourth_Marx_cabinet
 // is the agricultural ministry useful at all?
 Q.foreign_minister = 'Lima';
-Q.foreign_minister_party = 'PTB';
+Q.foreign_minister_party = 'pmdb';
 Q.war_minister = 'Kruel';
 Q.war_minister_party = 'Legalist';
 Q.justice_minister = 'Mangabeira';
 Q.justice_minister_party = 'PSB';
 Q.labor_minister = 'Afonso';
-Q.labor_minister_party = 'PTB';
+Q.labor_minister_party = 'pmdb';
 Q.health_minister = 'Chagas';
-Q.health_minister_party = 'PSD';
+Q.health_minister_party = 'pds';
 Q.economic_minister = 'Santiago';
-Q.economic_minister_party = 'PTB';
+Q.economic_minister_party = 'pmdb';
 Q.industry_minister = 'Balbino';
-Q.industry_minister_party = 'PSD';
+Q.industry_minister_party = 'pds';
 Q.planning_minister = 'Furtado';
-Q.planning_minister_party = 'PTB';
+Q.planning_minister_party = 'pmdb';
 
 // how many favors we have with andrade?
 Q.andrade_favors = 5
@@ -353,7 +340,7 @@ Q.darcy_advisor = 0; // Darcy Ribeiro
 Q.freire_advisor = 0; // Paulo Freire 
 Q.arraes_advisor = 0; // Miguel Arraes
 
-// psd
+// pds
 Q.ulysses_advisor = 0; // Ulysses Guimarães
 Q.kubitschek_advisor = 0; // Juscelino Kubitschek
 Q.andrade_advisor = 0; // Auro de Moura Andrade
@@ -423,4 +410,4 @@ The United States of Brazil is a land of contrasts. It has massive developments 
 
 Brasília is also the home of a crisis—a military and political crisis. Ever since {!<span class="tooltip-text" title="Jânio da Silva Quadros, former President of Brazil and your former boss.">Jânio Quadros</span>!} resigned in a sudden and dramatic manner, many in the Army and in Congress didn't want his vice-president to become president. They claimed he was a communist, an infiltrator. They made the nation into a parliamentary system behind the people's backs. They were almost able to go all in on a coup, but were stopped by fierce resistance from the Southern states. And after everything, the people chose to give your presidential powers back. 
 
-You are **João Belchior Marques Goulart**, the heir to Vargas, the new face of the PTB, brother-in-law to Brizola and close friend to Tancredo. You are the president.
+You are **João Belchior Marques Goulart**, the heir to Vargas, the new face of the pmdb, brother-in-law to Brizola and close friend to Tancredo. You are the president.
