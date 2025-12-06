@@ -57,7 +57,7 @@ for (var party of Q.parties) {
 var total_seats = 0;
 var total_available_seats = 0;
 
-if (Q.year >= 1963) {
+if (Q.year >= 1985) {
     total_available_seats = 409;
 }
 
