@@ -143,7 +143,7 @@ Q.protestant = 4; // protestants (pentecostals mainly)
 Q.immigrants = 2; // immigrants
 
 
-// income for industrial workers in reichsmarks/year - 1963 = 1600 Reichsmarks/year; 1931 = 1440 Reichsmarks/year; 1933 = 1138 Reichsmarks/year - source: https://babel.hathitrust.org/cgi/pt?id=uiug.30112104147985&seq=50
+// income for industrial workers in reichsmarks/year - 1985 = 1600 Reichsmarks/year; 1931 = 1440 Reichsmarks/year; 1933 = 1138 Reichsmarks/year - source: https://babel.hathitrust.org/cgi/pt?id=uiug.30112104147985&seq=50
 Q.income = 1600;
 // what about incomes for different classes? rural workers? middle-class workers?
 
@@ -158,7 +158,7 @@ Q.economic_expansion = 0;
 
 
 Q.classes = ['workers', 'business', 'middle', 'rural', 'protestant', 'immigrants'];
-Q.parties = ['pmdb', 'pds', 'pdt', 'ptb', 'pt', 'ptn', 'prp', 'other'];
+Q.parties = ['pmdb', 'pds', 'pdt', 'ptb', 'pt', 'other'];
 
 // Support for party by social group
 // they don't have to sum to 100 since the electoral calculations will be normalized.
@@ -167,8 +167,6 @@ Q.workers_pds = 10;
 Q.workers_pdt = 5;
 Q.workers_ptb = 5;
 Q.workers_pt = 1;
-Q.workers_ptn = 2;
-Q.workers_prp = 1;
 Q.workers_other = 1;
 
 Q.business_pmdb = 15;
@@ -176,8 +174,6 @@ Q.business_pds = 35;
 Q.business_pdt = 45;
 Q.business_ptb = 5;
 Q.business_pt = 1;
-Q.business_ptn = 5;
-Q.business_prp = 1;
 Q.business_other = 5;
 
 Q.middle_pmdb = 30;
@@ -185,8 +181,6 @@ Q.middle_pds = 50;
 Q.middle_pdt = 10;
 Q.middle_ptb = 5;
 Q.middle_pt = 5;
-Q.middle_ptn = 5;
-Q.middle_prp = 1;
 Q.middle_other = 1;
 
 Q.rural_pmdb = 10;
@@ -212,7 +206,7 @@ Q.immigrants_other = 5;
 
 
 // Current Câmara dos Deputados composition
-// % of CD in Jan 1963
+// % of CD in Jan 1985
 // source: wikipedia
 Q.pmdb_cd = 25;
 Q.pds_cd = 30;
@@ -251,8 +245,6 @@ Q.pds_in_presidency = 0;
 Q.pdt_in_presidency = 0;
 Q.ptb_in_presidency = 0;
 Q.pt_in_presidency = 0;
-Q.ptn_in_presidency = 0;
-Q.prp_in_presidency = 0;
 Q.military_presidency = 0;
 
 Q.pmdb_in_vice_presidency = 0;
@@ -286,9 +278,6 @@ Q.planning_minister_party = 'pmdb';
 // how many favors we have with andrade?
 Q.andrade_favors = 5
 
-// important goulart events
-Q.comicio_da_central = 0;
-Q.marcha_da_familia = 0;
 
 Q.electoral_threshold = 0;
 
@@ -364,45 +353,24 @@ For more information on the politics and government of the Fourth Brazilian Repu
 
 This is an **overhaul** mod for Autumn Chen's *Social Democracy: An Alternate History* mod, that you should check out <a href="https://red-autumn.itch.io/social-democracy" style="color: #900;">**here**</a> if you have not done so already.
 
-- @1963_easy: Begin (easy difficulty)
-- @1963_main: Begin (normal difficulty)
-- @1963_hard: Begin (hard difficulty)
-- @1963_historical: Begin (historical mode)
+- @1985_easy: Begin (easy difficulty)
+- @1985_main: Begin (normal difficulty)
+- @1985_hard: Begin (hard difficulty)
 
-@1963_easy
-on-arrival: difficulty = -1; resources = 4; dues = 3; rb_strength = 2500; kpd_relation = 29; z_relation = 54; dvp_relation = 49; budget = 5;
-go-to: 1963_main
+@1985_easy
+on-arrival: difficulty = -1; resources = 4; dues = 3; budget = 5;
+go-to: 1985_main
 
-@1963_hard
-on-arrival: difficulty = 1; resources = 0; dues = 1; rb_strength = 1000; reformist_dissent = 25; left_dissent = 30; labor_dissent = 25; center_dissent = 25; z_relation = 41; kpd_relation = 16; dvp_relation = 31; budget = 3;
-go-to: 1963_main
+@1985_hard
+on-arrival: difficulty = 1; resources = 0; dues = 1; budget = 3;
+go-to: 1985_main
 
-@1963_historical
-subtitle: Saving, loading, and polls will be disabled. [? if not achievement_game_completed: Not recommended for a first playthrough. ?]
-on-arrival: {!
-Q.difficulty = 2;
-Q.historical_mode = 1;
-Q.resources = 2;
-Q.dues = 1;
-Q.rb_strength = 2000;
-Q.reformist_dissent = 25;
-Q.left_dissent = 30;
-Q.labor_dissent = 25;
-Q.center_dissent = 25;
-Q.z_relation = 41;
-Q.kpd_relation = 16;
-Q.dvp_relation = 31;
-Q.budget = 2;
-this.state.disableSaves = true;
-!}
-go-to: 1963_main
-
-@1963_main 
+@1985_main 
 audio: shuffle music/1960/SeEuFosse.mp3 music/1960/CartaDeGetulio.mp3 music/1960/AiGege.mp3 music/1960/IdealDoPetebista.mp3 music/1960/LiderDoTrabalhador.mp3 music/1960/RetratoDoBelho.mp3 music/1960/RodaViva.mp3 music/1960/VamosJangar.mp3 
 new-page: true
 go-to: main if difficulty >= 0; main.main_easy if difficulty < 0
 
-= 7 January 1963
+= 7 January 1985
 
  {! <center><img src="img/flavor/BannerImageStart.jpg"></center> !}
 
