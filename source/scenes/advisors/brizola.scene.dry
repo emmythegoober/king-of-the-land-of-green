@@ -1,0 +1,39 @@
+title: Leonel Brizola
+is-pinned-card: true 
+tags: advisor, brizolist
+card-image: img/portraits/LeonelBrizola.jpg
+new-page: true
+view-if: brizola_advisor = 1
+
+= Leonel Brizola
+
+Leonel Brizola is the [? if month <= 3 and year = 1963 : current ?][? if month > 3 and year >= 1963 : former ?] governor of Rio Grande do Sul and a fierce defender of Vargas. He was the creator of the *Campanha da Legalidade* that helped you become president once again. A more radical member of the PTB, he believed that you should've marched on Brasília and close Congress to restore democratic rule. He is also your brother-in-law. 
+
+- @psdtalks
+- @clear_agenda
+- @root: Return to main
+
+@psdtalks
+title: Negotiating with the PSD
+subtitle: As a member of the PSD, Tancredo can improve our relations with his party.
+choose-if: advisor_action_timer <= 0 and ptb_in_presidency = 1
+unavailable-subtitle: [? if advisor_action_timer > 0 : [+ advisor_action_timer +] months before next advisor action. ?][? if not ptb_in_presidency: The PTB is not in the presidency. ?]
+on-arrival: advisor_action_timer = 6; coalition_dissent -= 1 if ptb_in_presidency = 1 and coalition_dissent > 0; psd_relation += 5
+
+We have improved our relations with the PSD and reduced tensions with them.
+
+@clear_agenda
+title: Clear the agenda
+subtitle: Removes all cards from the hand.
+choose-if: advisor_action_timer = 0
+unavailable-subtitle: [? if advisor_action_timer > 0 : [+ advisor_action_timer +] months before next advisor action. ?]
+on-arrival: {!
+Q.advisor_action_timer = 6;
+if (Q.difficulty >= 0) {
+    window.dendryUI.dendryEngine.state.currentHands['main'] = [];
+} else {
+    window.dendryUI.dendryEngine.state.currentHands['main.main_easy'] = [];
+}
+!}
+
+All items from our agenda have been cleared.

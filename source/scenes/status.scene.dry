@@ -1,0 +1,208 @@
+title: Status
+new-page: true
+is-special: true
+on-arrival: {!
+if (Q.unemployed) {
+    Q.unemployed_2 = Q.unemployed.toFixed(1);
+}
+if (Q.inflation) {
+    Q.inflation_2 = Q.inflation.toFixed(1);
+}
+Q.economic_growth_2 = '0';
+if (Q.economic_growth) {
+    Q.economic_growth_2 = Q.economic_growth.toFixed(1);
+}
+!}
+
+= Status
+
+[+ month : month +] [+ year +] 
+
+Resources available: [+ resources +]
+
+PTB position: [? if ptb_in_presidency : presidency ?][? if ptb_in_vice_presidency : vice-presidency ?][? if ptb_in_vice_presidency and ptb_in_presidency: executive control ?] [? if not ptb_in_presidency and not ptb_in_vice_presidency: opposition ?]
+[? if spd_in_government and not in_spd_majority and not in_left_front : Coalition dissent: [+ coalition_dissent : coalition_dissent +] ?]
+
+[? if spd_in_government and (in_left_front or in_popular_front): KPD coalition dissent: [+ kpd_coalition_dissent : coalition_dissent +] ?]
+
+Internal dissent: [+ dissent_percent : dissent +]
+
+= Government
+
+President: [+ president +] ([+ president_party +])
+
+Vice-President: [+ vice_president +] ([+ vice_president_party +])
+
+Câmara dos Deputados composition:
+
+# 1928: 30, 1930: 25, 1932: 22
+{!<span class="tooltip-text" title="Brazilian Labor Party">PTB</span>!}: [+ ptb_cd +]%
+# 1928: 15, 1930: 15, 1932: 
+{!<span class="tooltip-text" title="Social Democratic Party">PSD</span>!}: [+ psd_cd +]%
+# 1928: 10, 1930: 13
+{!<span class="tooltip-text" title="National Democratic Union">UDN</span>!}: [+ udn_cd +]%
+# 1928: 5, 1930: 4 (as DstP)
+{!<span class="tooltip-text" title="Social Progressive Party">PSP</span>!}: [+ psp_cd +]%
+# 1928: 9, 1930: 5
+{!<span class="tooltip-text" title="Christian Democratic Party">PDC</span>!}: [+ pdc_cd +]%
+# 1928: 14, 1930: 7
+{!<span class="tooltip-text" title="National Labor Party">PTN</span>!}: [+ ptn_cd +]%
+# 1928: 3, 1930: 18
+{!<span class="tooltip-text" title="Popular Representation Party (Integralists)">PRP</span>!}: [+ prp_cd +]%
+# 1928: 9, 1930: 10
+Others: [+ other_cd +]%
+
+[? if spd_in_government = 1 : Budget: [+ budget +] ?]
+
+Next election: [+ next_election_month : month +] [+ next_election_year +]
+
+= Economics
+
+Inflation: [+ inflation_2 +]%
+
+[? if black_thursday_seen = 1 : Unemployment: [+ unemployed_2 +]% ?]
+
+Economic growth: [+ economic_growth_2 +]%
+
+
+
+# = Public Opinion
+
+@politics
+
+= Inter-party Relations
+
+{!<span class="tooltip-text" title="Social Democratic Party">PSD</span>!}: [+ psd_relation : relationships +]
+
+{!<span class="tooltip-text" title="National Democratic Union">UDN</span>!}: [+ udn_relation : relationships +]
+
+{!<span class="tooltip-text" title="Social Progressive Party">PSP</span>!}: [+ psp_relation : relationships +]
+
+{!<span class="tooltip-text" title="Christian Democratic Party">PDC</span>!}: [+ pdc_relation : relationships +]
+
+{!<span class="tooltip-text" title="National Labor Party">PTN</span>!}: [+ ptn_relation : relationships +]
+
+{!<span class="tooltip-text" title="Popular Representation Party (Integralists)">PRP</span>!}: [+ prp_relation : relationships +]
+
+Corruption **[+ corruption : corruption +]** 
+
+= Internal Factions of the PTB
+
+{!<span class="tooltip-text" title="The Getulists, or Bureocratic Getulists, are the bureaucrats that handle labor relations. They are centrists, interested in order and respecting the authorities.">Getulists</span>!} strength: [+ varguist_strength : strength +], dissent: [+ varguist_dissenth : dissent +]
+
+{!<span class="tooltip-text" title="Although called 'Labourists', it is actually mostly composed of the intellectual class of the PTB. They are interested in a social-democratic society, with a slow, gradual transition to socialism.">Labourists</span>!} strength: [+ labor_strength : strength +], dissent: [+ labor_strength : dissent +]
+
+{!<span class="tooltip-text" title="Reformists are a more nationalist faction, with a radical approach towards the Reformas de Base">Reformists</span>!} strength: [+ reformist_strength : strength +], dissent: [+ reformist_dissent : dissent +]
+
+{!<span class="tooltip-text" title="While they remained unaligned with any faction, this group is vitally important for the survival of the PTB.">Unaligned</span>!} strength: [+ unaligned_strength : strength +], dissent: [+ unaligned_dissent : dissent +]
+
+
+
+@paramilitaries
+on-arrival: {!
+if (Q.rb_strength) {
+    Q.rb_strength_2 = Q.rb_strength.toFixed(1);
+}
+if (Q.rfb_strength) {
+    Q.rfb_strength_2 = Q.rfb_strength.toFixed(1);
+}
+if (Q.sh_strength) {
+    Q.sh_strength_2 = Q.sh_strength.toFixed(1);
+}
+if (Q.sa_strength) {
+    Q.sa_strength_2 = Q.sa_strength.toFixed(1);
+}
+!}
+
+= Army Factions
+
+{!<span class="tooltip-text" title="The hardliners are the major opponents of current democratic rule, and one of João Goulart's most fierce opponents. They have repeatedly called for coups.">Hardliners</span>!} Military Popularity: [+ hd_military_pop +]%;
+Civilian Popularity: [+ hd_civilian_pop +]%
+
+{!<span class="tooltip-text" title="Legalists are those who supported Lott's counter-coup. They are the fiercest defenders of the Constitution in the military and will stop at nothing to prevent a coup.">Legalist</span>!} Military Popularity: [+ legalist_military_pop +]%;
+Civilian Popularity: [+ legalist_civilian_pop +]%
+
+{!<span class="tooltip-text" title="The Sorbonne are those who prefer the status quo. Although some of their members have called for coups against you, if you don't annoy them too much, they probably won't do anything.">Sorbonne</span>!} Military Popularity: [+ sorbonne_military_pop +]%;
+Civilian Popularity: [+ pracas_civilian_pop +]%
+
+{!<span class="tooltip-text" title="They are the military faction most loyal to João Goulart. Entirely composed of low-ranking officers who seek enfranchisement. Many of them were present during the Campanha da Legalidade.">Praças</span>!} Military Popularity: [+ pracas_military_pop +]%;
+Civilian Popularity: [+ pracas_civilian_pop +]%
+
+Military Loyalty: [+ military_loyalty : loyalty +]
+
+@polls
+on-arrival: {!
+Q.pro_republic_disp = Math.round(Q.pro_republic);
+Q.nationalism_disp = Math.round(Q.nationalism);
+Q.socialism_disp = Math.round(Q.socialism);
+!}
+
+= Projected election results
+
+(if the election were to be held now):
+
+# 1928: 30, 1930: 25, 1932: 22
+PTB: [+ ptb_votes +]%
+
+# 1928: 15, 1930: 15, 1932: 
+PSD: [+ psd_votes +]%
+
+# 1928: 10, 1930: 13
+UDN: [+ udn_votes +]%
+
+# 1928: 5, 1930: 4 (as DstP)
+PSP: [+ psp_votes +]%
+
+# 1928: 9, 1930: 5
+PDC: [+ pdc_votes +]%
+
+# 1928: 14, 1930: 7
+PTN: [+ ptn_votes +]%
+
+# 1928: 3, 1930: 18
+PRP: [+ prp_votes  +]%
+
+# 1928: 9, 1930: 10
+Others: [+ other_votes +]%
+
+**Detailed results for each demographic**
+
+Workers: PTB: [+ workers_ptb_display +]%, PSD: [+ workers_psd_display +]%, UDN: [+ workers_udn_display +]%, PSP: [+ workers_psp_display +]%, PDC: [+ workers_pdc_display +]%; PTN: [+ workers_ptn_display +]%, PRP: [+ workers_prp_display +]%, Others: [+ workers_other_display +]% 
+
+Business: PTB: [+ business_ptb_display +]%, PSD: [+ business_psd_display +]%, UDN: [+ business_udn_display +]%, PSP: [+ business_psp_display +]%, PDC: [+ business_pdc_display +]%; PTN: [+ business_ptn_display +]%, PRP: [+ business_prp_display +]%, Others: [+ business_other_display +]% 
+
+Middle Class: PTB: [+ middle_ptb_display +]%, PSD: [+ middle_psd_display +]%, UDN: [+ middle_udn_display +]%, PSP: [+ middle_psp_display +]%, PDC: [+ middle_pdc_display +]%; PTN: [+ middle_ptn_display +]%, PRP: [+ middle_prp_display +]%, Others: [+ middle_other_display +]% 
+
+Rural: PTB: [+ rural_ptb_display +]%, PSD: [+ rural_psd_display +]%, UDN: [+ rural_udn_display +]%, PSP: [+ rural_psp_display +]%, PDC: [+ rural_pdc_display +]%; PTN: [+ rural_ptn_display +]%, PRP: [+ rural_prp_display +]%, Others: [+ rural_other_display +]% 
+
+Protestants: PTB: [+ protestant_ptb_display +]%, PSD: [+ protestant_psd_display +]%, UDN: [+ protestant_udn_display +]%, PSP: [+ protestant_psp_display +]%, PDC: [+ protestant_pdc_display +]%; PTN: [+ protestant_ptn_display +]%, PRP: [+ protestant_prp_display +]%, Others: [+ protestant_other_display +]% 
+
+Immigrants: PTB: [+ immigrants_ptb_display +]%, PSD: [+ immigrants_psd_display +]%, UDN: [+ immigrants_udn_display +]%, PSP: [+ immigrants_psp_display +]%, PDC: [+ immigrants_pdc_display +]%; PTN: [+ immigrants_ptn_display +]%, PRP: [+ immigrants_prp_display +]%, Others: [+ immigrants_other_display +]% 
+
+Popular Support for the Administration: [+ pro_government +]%
+
+Congressional Support for the Administration: [+ congress_support +]%
+
+@forpol
+
+= Relations 
+
+Our relations with the Americans [+ american_support : foreign_policy +]
+
+Our relations with the Soviets [+ soviet_support : foreign_policy +]
+
+Our relations with the rest of Latin America [+ latam_support : foreign_policy +]
+
+@reformas 
+
+= As Reformas de Base
+
+**Educational Reform** [+ educational_reform : reforms +]
+
+**Fiscal Reform** [+ fiscal_reform : reforms +]
+
+**Agrarian Reform** [+ agrarian_reform : reforms +]
+
+**Urban Reform** [+ urban_reform : reforms +]
+
+**Electoral Reform** [+ electoral_reform : reforms +]

@@ -1,0 +1,426 @@
+title: Root Scene
+new-page: true
+go-to: post_event if started = 1; start_menu if started = 0
+
+@start_menu
+new-page: true
+go-to: start_menu_2
+
+= Night of Destiny: An Alternate History
+
+@start_menu_2
+
+- @start: Start game
+- @election_simulation: Election simulation
+- @credits: Credits
+- @game_over.achievements
+
+
+@start
+on-arrival: {!
+Q.started = 1;
+// time elapsed (in months)
+Q.time = 1;
+Q.year = 1963;
+Q.month = 1;
+
+// how many actions have been taken this month?
+Q.month_actions = 0;
+
+// 0 = normal difficulty, 1 = hard mode, 2 = hard mode no saves
+Q.difficulty = 0;
+Q.historical_mode = 0;
+// old demographics
+Q.old_demographics = 0;
+// use decimals for reichstag seats
+// TODO: not yet implemented
+Q.use_decimals = 0;
+
+// elections are not on a timer, but rather there is an indicator for whether you're in an electoral cycle.
+Q.in_election = 1;
+Q.next_election_year = 1965;
+Q.next_election_month = 10;
+Q.next_election_time = 5;
+
+// party resources
+Q.resources = 2;
+// party dues
+Q.dues = 2;
+
+// corruption
+Q.corruption = 301;
+
+// the state of the party
+// overall dissent reduces every increase in party support.
+Q.dissent = 0.20;
+Q.dissent_percent = 20;
+
+// factions
+Q.factions = ['varguist', 'labor', 'reformer', 'unaligned'];
+// should this be normalized to 100%?
+Q.varguist_strength = 35;
+Q.varguist_dissent = 28;
+Q.labor_strength = 30;
+Q.labor_dissent = 40;
+Q.reformist_strength = 25;
+Q.reformist_dissent = 0;
+Q.unaligned_strength = 15;
+Q.unaligned_dissent = 25;
+
+// secret events...
+Q.unions_independent = 0;
+Q.centrists_resign = 0;
+Q.left_split = 0;
+Q.reformists_resigned = 0;
+
+// has santiago fallen?
+santiago_falls = 0;
+
+// forpol
+Q.american_support = 50;
+Q.soviet_support = 40;
+Q.latam_support = 50;
+
+// is pcb banned?
+Q.pcb_banned = 1;
+
+// inter-party relations
+Q.psd_relation = 40;
+Q.udn_relation = 15;
+Q.psp_relation = 30;
+Q.pdc_relation = 20;
+Q.ptn_relation = 20;
+Q.prp_relation = 10;
+
+Q.psd_leader = "Kubitschek";
+Q.udn_leader = "Lacerda";
+Q.psp_leader = "Adhemar";
+Q.prp_leader = "Salgado";
+
+// hey, did goulart flee?
+Q.presidency_vacant = 0;
+
+// Military factions (in % of support)
+// do i make this add to 100%?
+
+Q.hd_military_pop = 32;
+Q.hd_civilian_pop = 10;
+Q.sorbonne_military_pop = 45;
+Q.sorbonne_civilian_pop = 30;
+Q.legalist_military_pop = 40;
+Q.legalist_civilian_pop = 45;
+Q.pracas_military_pop = 5;
+Q.pracas_civilian_pop = 20;
+
+
+// The state of the country
+
+// popular opinion
+// national ideology - on a binary scale
+// anti-coup vs pro-coup
+Q.coup = 12;
+// socialism vs capitalism
+Q.socialism = 28;
+// pro-government vs anti-government
+Q.pro_government = 59;
+// congressional support
+Q.congress_support = 53;
+
+// Reforms
+Q.educational_reform = 0;
+Q.fiscal_reform = 0;
+Q.agrarian_reform = 0;
+Q.electoral_reform = 0;
+Q.urban_reform = 0;
+
+
+Q.budget = 4;
+
+
+// these are mostly estimations based on IBGE data - i read way too much census data
+Q.workers = 43; // urban workers
+Q.business = 12.5; // business people
+Q.middle = 17.5; // the middle KKKlass
+Q.rural = 53.5; // farm people
+Q.protestant = 4; // protestants (pentecostals mainly)
+Q.immigrants = 2; // immigrants
+
+
+// income for industrial workers in reichsmarks/year - 1963 = 1600 Reichsmarks/year; 1931 = 1440 Reichsmarks/year; 1933 = 1138 Reichsmarks/year - source: https://babel.hathitrust.org/cgi/pt?id=uiug.30112104147985&seq=50
+Q.income = 1600;
+// what about incomes for different classes? rural workers? middle-class workers?
+
+// inflation source: http://almanaque.folha.uol.com.br/dinheiro60.htm
+Q.inflation = 50.1;
+
+// economic growth - source: https://www.econ.puc-rio.br/uploads/adm/trabalhos/files/td569.pdf
+Q.economic_growth = 6.6;
+
+// economic expansion timer
+Q.economic_expansion = 0;
+
+
+Q.classes = ['workers', 'business', 'middle', 'rural', 'protestant', 'immigrants'];
+Q.parties = ['ptb', 'psd', 'udn', 'psp', 'pdc', 'ptn', 'prp', 'other'];
+
+// Support for party by social group
+// they don't have to sum to 100 since the electoral calculations will be normalized.
+Q.workers_ptb = 75;
+Q.workers_psd = 10;
+Q.workers_udn = 5;
+Q.workers_psp = 5;
+Q.workers_pdc = 1;
+Q.workers_ptn = 2;
+Q.workers_prp = 1;
+Q.workers_other = 1;
+
+Q.business_ptb = 15;
+Q.business_psd = 35;
+Q.business_udn = 45;
+Q.business_psp = 5;
+Q.business_pdc = 1;
+Q.business_ptn = 5;
+Q.business_prp = 1;
+Q.business_other = 5;
+
+Q.middle_ptb = 30;
+Q.middle_psd = 50;
+Q.middle_udn = 10;
+Q.middle_psp = 5;
+Q.middle_pdc = 5;
+Q.middle_ptn = 5;
+Q.middle_prp = 1;
+Q.middle_other = 1;
+
+Q.rural_ptb = 10;
+Q.rural_psd = 10;
+Q.rural_udn = 60;
+Q.rural_psp= 1;
+Q.rural_pdc = 5;
+Q.rural_ptn = 10;
+Q.rural_prp = 3;
+Q.rural_other = 2;
+
+Q.protestant_ptb = 5;
+Q.protestant_psd = 15;
+Q.protestant_udn = 50;
+Q.protestant_psp = 10;
+Q.protestant_pdc = 10;
+Q.protestant_ptn = 12;
+Q.protestant_prp = 3;
+Q.protestant_other = 5;
+
+Q.immigrants_ptb = 50;
+Q.immigrants_psd = 20;
+Q.immigrants_udn = 10;
+Q.immigrants_psp = 5;
+Q.immigrants_pdc = 2;
+Q.immigrants_ptn = 5;
+Q.immigrants_prp = 3;
+Q.immigrants_other = 5;
+
+
+// Current Câmara dos Deputados composition
+// % of CD in Jan 1963
+// source: wikipedia
+Q.ptb_cd = 25;
+Q.psd_cd = 30;
+Q.udn_cd = 22;
+Q.psp_cd = 5;
+Q.pdc_cd = 4;
+Q.ptn_cd = 2;
+Q.prp_cd = 1;
+Q.other_cd = 11;
+
+
+// diff from prev
+Q.old_ptb_cd = 25;
+Q.old_psd_cd = 30;
+Q.old_udn_cd = 22;
+Q.old_psp_cd = 5;
+Q.old_pdc_cd = 4;
+Q.old_ptn_cd = 2;
+Q.old_prp_cd = 1;
+Q.old_other_cd = 11;
+
+
+// array of objects of the form {date: Date(), spd: 10, kpd: 12, ...} for each election
+Q.election_records = [];
+// party support records for every month
+Q.party_support_records = [];
+// inflation and unemployment records
+Q.economic_records = [];
+
+// state of the military
+Q.military_loyalty = 0.45
+
+// State of the government
+Q.president = "Goulart";
+Q.president_party = "PTB";
+Q.vice_president = "None";
+Q.vice_president_party = 'N/A';
+Q.ptb_in_presidency = 1;
+Q.psd_in_presidency = 0;
+Q.udn_in_presidency = 0;
+Q.psp_in_presidency = 0;
+Q.pdc_in_presidency = 0;
+Q.ptn_in_presidency = 0;
+Q.prp_in_presidency = 0;
+Q.military_presidency = 0;
+
+Q.ptb_in_vice_presidency = 0;
+Q.psd_in_vice_presidency = 0;
+Q.udn_in_vice_presidency = 0;
+Q.psp_in_vice_presidency = 0;
+Q.pdc_in_vice_presidency = 0;
+Q.ptn_in_vice_presidency = 0;
+Q.prp_in_vice_presidency = 0;
+
+// ministries - which parties control the ministries?
+// starting with the 4th Marx cabinet https://en.wikipedia.org/wiki/Fourth_Marx_cabinet
+// is the agricultural ministry useful at all?
+Q.foreign_minister = 'Lima';
+Q.foreign_minister_party = 'PTB';
+Q.war_minister = 'Kruel';
+Q.war_minister_party = 'Legalist';
+Q.justice_minister = 'Mangabeira';
+Q.justice_minister_party = 'PSB';
+Q.labor_minister = 'Afonso';
+Q.labor_minister_party = 'PTB';
+Q.health_minister = 'Chagas';
+Q.health_minister_party = 'PSD';
+Q.economic_minister = 'Santiago';
+Q.economic_minister_party = 'PTB';
+Q.industry_minister = 'Balbino';
+Q.industry_minister_party = 'PSD';
+Q.planning_minister = 'Furtado';
+Q.planning_minister_party = 'PTB';
+
+// how many favors we have with andrade?
+Q.andrade_favors = 5
+
+// important goulart events
+Q.comicio_da_central = 0;
+Q.marcha_da_familia = 0;
+
+Q.electoral_threshold = 0;
+
+// our conduct in the government, and the conduct of our coalition opponents.
+// did the SPD vote against the previous government in a vote of no confidence?
+Q.spd_no_confidence = 0;
+// was the last SPD government taken down in a vote of no confidence by right-wing coalition partners?
+Q.no_confidence_against_spd = 0;
+
+// Advisors/Leaders
+Q.n_advisors = 3;
+// timer - this decrements by 1 every turn, and is set to 5 whenever an advisor action is used, so that you can only use one advisor action every 5 months.
+// let's just put all of the timers here...
+// most party affairs and government affairs cards are on a timer.
+Q.timers = ['advisor_action', 'calm_down'];
+Q.advisor_action_timer = 0;
+Q.calm_down_timer = 0;
+
+Q.n_elections = 0;
+
+// getulist advisors
+Q.ivete_advisor = 0; // Ivete Vargas
+Q.evandro_advisor = 0; // Evandro Lins e Silva 
+
+// brizolist advisors
+Q.brizola_advisor = 0; // Leonel Brizola
+Q.juliao_advisor = 0; // Francisco Julião
+
+// reformist advisors
+Q.serra_advisor = 0; // José Serra
+Q.paiva_advisor = 0; // Rubens Paiva
+Q.oswaldo_advisor = 0; // Oswaldo Lima Filho 
+
+// labourist advisors
+Q.hermes_advisor = 0; // Hermes Lima
+Q.furtado_advisor = 1; // Celso Furtado
+Q.magalhaes_advisor = 0; // Sergio Magalhães
+Q.santiago_advisor = 1; // San Tiago Dantas
+
+// military
+Q.lott_advisor = 0; // Henrique Lott
+Q.dantas_advisor = 0; // Jair Dantas Ribeiro
+Q.kruel_advisor = 0; // Amaury Kruel
+Q.assis_advisor = 0; // Argemiro de Assis Brasil
+
+// other
+Q.prestes_advisor = 0; // Luís Carlos Prestes
+Q.darcy_advisor = 0; // Darcy Ribeiro 
+Q.freire_advisor = 0; // Paulo Freire 
+Q.arraes_advisor = 0; // Miguel Arraes
+
+// psd
+Q.ulysses_advisor = 0; // Ulysses Guimarães
+Q.kubitschek_advisor = 0; // Juscelino Kubitschek
+Q.andrade_advisor = 0; // Auro de Moura Andrade
+Q.peixoto_advisor = 0; // Amaral Peixoto
+Q.tancredo_advisor = 1; // Tancredo Neves
+
+
+!}
+set-bg: img/map_2.jpg
+new-page: true
+
+ {! <center><img src="img/flavor/LegalityCampaign.jpg"></center> !}
+
+> *"Today, with the loud testimony of the nation and the solidarity of the people, gathered in the square that belongs only to the people, the government, which is also the people and also belongs only to the people, reaffirms its unwavering resolve to fight with all its might for the reform of Brazilian society. Not just agrarian reform, but tax reform, broad electoral reform, the vote for the illiterate, the eligibility of all Brazilians, the purity of democratic democratic life, for economic emancipation, for social justice, and for the progress of Brazil"*
+
+ - João Goulart, *Comício da Central*, 1964
+
+This is a game of alternate history. While historical accuracy is a major concern, keep in mind that this is a *game*, and that any divergence from actual events will necessarily have to involve some element of make-believe. Nevertheless, please let the author know if there are any glaring mistakes.
+
+For more information on the politics and government of the Fourth Brazilian Republic, see the "Library" page on the top left. If this is your first time playing the game, it is strongly recommended that you read at least some of this information.
+
+This is an **overhaul** mod for Autumn Chen's *Social Democracy: An Alternate History* mod, that you should check out <a href="https://red-autumn.itch.io/social-democracy" style="color: #900;">**here**</a> if you have not done so already.
+
+- @1963_easy: Begin (easy difficulty)
+- @1963_main: Begin (normal difficulty)
+- @1963_hard: Begin (hard difficulty)
+- @1963_historical: Begin (historical mode)
+
+@1963_easy
+on-arrival: difficulty = -1; resources = 4; dues = 3; rb_strength = 2500; kpd_relation = 29; z_relation = 54; dvp_relation = 49; budget = 5;
+go-to: 1963_main
+
+@1963_hard
+on-arrival: difficulty = 1; resources = 0; dues = 1; rb_strength = 1000; reformist_dissent = 25; left_dissent = 30; labor_dissent = 25; center_dissent = 25; z_relation = 41; kpd_relation = 16; dvp_relation = 31; budget = 3;
+go-to: 1963_main
+
+@1963_historical
+subtitle: Saving, loading, and polls will be disabled. [? if not achievement_game_completed: Not recommended for a first playthrough. ?]
+on-arrival: {!
+Q.difficulty = 2;
+Q.historical_mode = 1;
+Q.resources = 2;
+Q.dues = 1;
+Q.rb_strength = 2000;
+Q.reformist_dissent = 25;
+Q.left_dissent = 30;
+Q.labor_dissent = 25;
+Q.center_dissent = 25;
+Q.z_relation = 41;
+Q.kpd_relation = 16;
+Q.dvp_relation = 31;
+Q.budget = 2;
+this.state.disableSaves = true;
+!}
+go-to: 1963_main
+
+@1963_main 
+audio: shuffle music/1960/SeEuFosse.mp3 music/1960/CartaDeGetulio.mp3 music/1960/AiGege.mp3 music/1960/IdealDoPetebista.mp3 music/1960/LiderDoTrabalhador.mp3 music/1960/RetratoDoBelho.mp3 music/1960/RodaViva.mp3 music/1960/VamosJangar.mp3 
+new-page: true
+go-to: main if difficulty >= 0; main.main_easy if difficulty < 0
+
+= 7 January 1963
+
+ {! <center><img src="img/flavor/BannerImageStart.jpg"></center> !}
+
+The United States of Brazil is a land of contrasts. It has massive developments and a booming economy, but it also has poverty, suffering and hunger. In Brasília, the national capital, this contrast can be seen everywhere. In itself, Brasilia is an experiment—it asks if Brazil can create and manage a whole new city in the middle of nowhere. It was created by the minds of architects and ambitious politicians, but also by the hands of Northeastern workers, who after finishing its construction were kicked out of the "Plano Piloto" to live in the capital's satellite cities.
+
+Brasília is also the home of a crisis—a military and political crisis. Ever since {!<span class="tooltip-text" title="Jânio da Silva Quadros, former President of Brazil and your former boss.">Jânio Quadros</span>!} resigned in a sudden and dramatic manner, many in the Army and in Congress didn't want his vice-president to become president. They claimed he was a communist, an infiltrator. They made the nation into a parliamentary system behind the people's backs. They were almost able to go all in on a coup, but were stopped by fierce resistance from the Southern states. And after everything, the people chose to give your presidential powers back. 
+
+You are **João Belchior Marques Goulart**, the heir to Vargas, the new face of the PTB, brother-in-law to Brizola and close friend to Tancredo. You are the president.

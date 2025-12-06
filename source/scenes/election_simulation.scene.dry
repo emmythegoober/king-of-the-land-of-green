@@ -1,0 +1,346 @@
+title: Election Simulation
+set-jump: post_election
+
+
+- @1928: 1928 historical scenario
+- @1930: 1930 historical scenario
+- @1932: 1932 (July) historical scenario
+
+@1928
+on-arrival: {!
+// these are mostly estimations based on IBGE data - i read way too much census data
+Q.workers = 43; // urban workers
+Q.business = 12.5; // business people
+Q.middle = 17.5; // the middle KKKlass
+Q.rural = 53.5; // farm people
+Q.protestant = 4; // protestants (pentecostals mainly)
+Q.immigrants = 2; // immigrants
+
+// unemployment: 1929 - 13.3, 1930 - 22.7, 1931 - 34.3, 1932 - 43.8 (same source as above)
+
+// income for industrial workers in reichsmarks/year - 1963 = 1600 Reichsmarks/year; 1931 = 1440 Reichsmarks/year; 1933 = 1138 Reichsmarks/year - source: https://babel.hathitrust.org/cgi/pt?id=uiug.30112104147985&seq=50
+Q.income = 1600;
+// what about incomes for different classes? rural workers? middle-class workers?
+
+// inflation source: http://almanaque.folha.uol.com.br/dinheiro60.htm
+Q.inflation = 50.1;
+
+// economic growth - source: https://www.econ.puc-rio.br/uploads/adm/trabalhos/files/td569.pdf
+Q.economic_growth = 6.6;
+
+// economic expansion timer
+Q.economic_expansion = 0;
+
+
+Q.classes = ['workers', 'business', 'middle', 'rural', 'protestant', 'immigrants'];
+Q.parties = ['ptb', 'psd', 'udn', 'psp', 'pdc', 'ptn', 'prp', 'other'];
+
+// Support for party by social group
+// they don't have to sum to 100 since the electoral calculations will be normalized.
+Q.workers_ptb = 90;
+Q.workers_psd = 10;
+Q.workers_udn = 5;
+Q.workers_psp = 10;
+Q.workers_pdc = 5;
+Q.workers_ptn = 5;
+Q.workers_prp = 1;
+Q.workers_other = 5;
+
+Q.business_ptb = 5;
+Q.business_psd = 35;
+Q.business_udn = 45;
+Q.business_psp = 5;
+Q.business_pdc = 1;
+Q.business_ptn = 5;
+Q.business_prp = 1;
+Q.business_other = 5;
+
+Q.middle_ptb = 10;
+Q.middle_psd = 60;
+Q.middle_udn = 10;
+Q.middle_psp = 5;
+Q.middle_pdc = 5;
+Q.middle_ptn = 5;
+Q.middle_prp = 1;
+Q.middle_other = 1;
+
+Q.rural_ptb = 10;
+Q.rural_psd = 10;
+Q.rural_udn = 60;
+Q.rural_psp= 1;
+Q.rural_pdc = 5;
+Q.rural_ptn = 10;
+Q.rural_prp = 3;
+Q.rural_other = 2;
+
+Q.protestant_ptb = 5;
+Q.protestant_psd = 15;
+Q.protestant_udn = 50;
+Q.protestant_psp = 10;
+Q.protestant_pdc = 10;
+Q.protestant_ptn = 12;
+Q.protestant_prp = 3;
+Q.protestant_other = 5;
+
+Q.immigrants_ptb = 40;
+Q.immigrants_psd = 30;
+Q.immigrants_udn = 10;
+Q.immigrants_psp = 5;
+Q.immigrants_pdc = 2;
+Q.immigrants_ptn = 5;
+Q.immigrants_prp = 3;
+Q.immigrants_other = 5;
+!}
+go-to: election_algorithm
+set-jump: post_election
+
+@1930
+on-arrival: {!
+// these are mostly estimations based on IBGE data - i read way too much census data
+Q.workers = 43; // urban workers
+Q.business = 12.5; // business people
+Q.middle = 17.5; // the middle KKKlass
+Q.rural = 53.5; // farm people
+Q.protestant = 4; // protestants (pentecostals mainly)
+Q.immigrants = 2; // immigrants
+
+// unemployment: 1929 - 13.3, 1930 - 22.7, 1931 - 34.3, 1932 - 43.8 (same source as above)
+
+// income for industrial workers in reichsmarks/year - 1963 = 1600 Reichsmarks/year; 1931 = 1440 Reichsmarks/year; 1933 = 1138 Reichsmarks/year - source: https://babel.hathitrust.org/cgi/pt?id=uiug.30112104147985&seq=50
+Q.income = 1600;
+// what about incomes for different classes? rural workers? middle-class workers?
+
+// inflation source: http://almanaque.folha.uol.com.br/dinheiro60.htm
+Q.inflation = 50.1;
+
+// economic growth - source: https://www.econ.puc-rio.br/uploads/adm/trabalhos/files/td569.pdf
+Q.economic_growth = 6.6;
+
+// economic expansion timer
+Q.economic_expansion = 0;
+
+
+Q.classes = ['workers', 'business', 'middle', 'rural', 'protestant', 'immigrants'];
+Q.parties = ['ptb', 'psd', 'udn', 'psp', 'pdc', 'ptn', 'prp', 'other'];
+
+// Support for party by social group
+// they don't have to sum to 100 since the electoral calculations will be normalized.
+Q.workers_ptb = 90;
+Q.workers_psd = 10;
+Q.workers_udn = 5;
+Q.workers_psp = 10;
+Q.workers_pdc = 5;
+Q.workers_ptn = 5;
+Q.workers_prp = 1;
+Q.workers_other = 5;
+
+Q.business_ptb = 5;
+Q.business_psd = 35;
+Q.business_udn = 45;
+Q.business_psp = 5;
+Q.business_pdc = 1;
+Q.business_ptn = 5;
+Q.business_prp = 1;
+Q.business_other = 5;
+
+Q.middle_ptb = 10;
+Q.middle_psd = 60;
+Q.middle_udn = 10;
+Q.middle_psp = 5;
+Q.middle_pdc = 5;
+Q.middle_ptn = 5;
+Q.middle_prp = 1;
+Q.middle_other = 1;
+
+Q.rural_ptb = 10;
+Q.rural_psd = 10;
+Q.rural_udn = 60;
+Q.rural_psp= 1;
+Q.rural_pdc = 5;
+Q.rural_ptn = 10;
+Q.rural_prp = 3;
+Q.rural_other = 2;
+
+Q.protestant_ptb = 5;
+Q.protestant_psd = 15;
+Q.protestant_udn = 50;
+Q.protestant_psp = 10;
+Q.protestant_pdc = 10;
+Q.protestant_ptn = 12;
+Q.protestant_prp = 3;
+Q.protestant_other = 5;
+
+Q.immigrants_ptb = 40;
+Q.immigrants_psd = 30;
+Q.immigrants_udn = 10;
+Q.immigrants_psp = 5;
+Q.immigrants_pdc = 2;
+Q.immigrants_ptn = 5;
+Q.immigrants_prp = 3;
+Q.immigrants_other = 5;
+!}
+
+go-to: election_algorithm
+set-jump: post_election
+
+@1932
+on-arrival: {!
+// these are mostly estimations based on IBGE data - i read way too much census data
+Q.workers = 43; // urban workers
+Q.business = 12.5; // business people
+Q.middle = 17.5; // the middle KKKlass
+Q.rural = 53.5; // farm people
+Q.protestant = 4; // protestants (pentecostals mainly)
+Q.immigrants = 2; // immigrants
+
+// unemployment: 1929 - 13.3, 1930 - 22.7, 1931 - 34.3, 1932 - 43.8 (same source as above)
+
+// income for industrial workers in reirsmarks/year - 1963 = 1600 Reichsmarks/year; 1931 = 1440 Reichsmarks/year; 1933 = 1138 Reichsmarks/year - source: https://babel.hathitrust.org/cgi/pt?id=uiug.30112104147985&seq=50
+Q.income = 1600;
+// what about incomes for different classes? rural workers? middle-class workers?
+
+// inflation source: http://almanaque.folha.uol.com.br/dinheiro60.htm
+Q.inflation = 50.1;
+
+// economic growth - source: https://www.econ.puc-rio.br/uploads/adm/trabalhos/files/td569.pdf
+Q.economic_growth = 6.6;
+
+// economic expansion timer
+Q.economic_expansion = 0;
+
+
+Q.classes = ['workers', 'business', 'middle', 'rural', 'protestant', 'immigrants'];
+Q.parties = ['ptb', 'psd', 'udn', 'psp', 'pdc', 'ptn', 'prp', 'other'];
+
+// Support for party by social group
+// they don't have to sum to 100 since the electoral calculations will be normalized.
+Q.workers_ptb = 90;
+Q.workers_psd = 10;
+Q.workers_udn = 5;
+Q.workers_psp = 10;
+Q.workers_pdc = 5;
+Q.workers_ptn = 5;
+Q.workers_prp = 1;
+Q.workers_other = 5;
+
+Q.business_ptb = 5;
+Q.business_psd = 35;
+Q.business_udn = 45;
+Q.business_psp = 5;
+Q.business_pdc = 1;
+Q.business_ptn = 5;
+Q.business_prp = 1;
+Q.business_other = 5;
+
+Q.middle_ptb = 10;
+Q.middle_psd = 60;
+Q.middle_udn = 10;
+Q.middle_psp = 5;
+Q.middle_pdc = 5;
+Q.middle_ptn = 5;
+Q.middle_prp = 1;
+Q.middle_other = 1;
+
+Q.rural_ptb = 10;
+Q.rural_psd = 10;
+Q.rural_udn = 60;
+Q.rural_psp= 1;
+Q.rural_pdc = 5;
+Q.rural_ptn = 10;
+Q.rural_prp = 3;
+Q.rural_other = 2;
+
+Q.protestant_ptb = 5;
+Q.protestant_psd = 15;
+Q.protestant_udn = 50;
+Q.protestant_psp = 10;
+Q.protestant_pdc = 10;
+Q.protestant_ptn = 12;
+Q.protestant_prp = 3;
+Q.protestant_other = 5;
+
+Q.immigrants_ptb = 40;
+Q.immigrants_psd = 30;
+Q.immigrants_udn = 10;
+Q.immigrants_psp = 5;
+Q.immigrants_pdc = 2;
+Q.immigrants_ptn = 5;
+Q.immigrants_prp = 3;
+Q.immigrants_other = 5;
+!}
+go-to: election_algorithm
+set-jump: post_election
+
+@post_election
+on-arrival: {!
+// set congress proportion to votes
+Q.ptb_cd = Q.ptb_votes;
+Q.psd_cd = Q.psd_votes;
+Q.udn_cd = Q.udn_votes;
+Q.psp_cd = Q.psp_votes;
+Q.pdc_cd = Q.pdc_votes;
+Q.ptn_cd = Q.ptn_votes;
+Q.prp_cd = Q.prp_votes;
+Q.other_r = Q.other_votes;
+
+
+Q.largest_party = 'PTB';
+if (Q.udn_cd >= Q.ptb_cd && Q.udn_cd >= Q.ptb_cd) {
+    Q.largest_party = 'UDN';
+}
+
+if (Q.psp_cd >= Q.ptb_cd && Q.psp_cd >= Q.ptb_cd) {
+    Q.largest_party = 'PSP';
+}
+
+if (Q.psd_cd >= Q.ptb_cd && Q.psd_cd >= Q.ptb_cd) {
+    Q.largest_party = 'PSD';
+}
+
+
+
+// coalitions
+Q.weimar_coalition = Q.spd_r + Q.ddp_r + Q.z_r - 3;
+Q.grand_coalition = Q.spd_r + Q.ddp_r + Q.z_r + Q.dvp_r;
+Q.bourgeois_coalition = Q.ddp_r + Q.z_r + Q.dvp_r + Q.other_r;
+Q.center_right_coalition = Q.z_r + Q.ddp_r + Q.dvp_r + Q.other_r + Q.dnvp_r;
+Q.right_coalition = Q.z_r + Q.dvp_r + Q.other_r + Q.dnvp_r;
+Q.far_right_coalition = Q.dnvp_r + Q.nsdap_r;
+Q.left_coalition = Q.spd_r + Q.kpd_r;
+// this is an absurd concept lol
+Q.united_front_coalition = Q.spd_r + Q.kpd_r + Q.z_r + Q.ddp_r - 3;
+Q.anti_democratic_coalition = Q.kpd_r + Q.nsdap_r;
+// aka everyone except nazi, kpd, dnvp
+Q.neo_weimar_coalition = Q.spd_r + Q.ddp_r + Q.z_r + Q.dvp_r + Q.other_r;
+!}
+
+The electoral system is essentially proportional, with the proportion of Reichstag seats roughly equal to the proportion of votes.
+ 
+**Election results:**
+
+PTB: [+ ptb_cd +]
+
+PSD: [+ psd_cd +]
+
+UDN: [+ udn_cd +]
+
+PSP: [+ psp_cd +]
+
+PDC: [+ pdc_cd +]
+
+PTN: [+ ptn_cd +]
+
+PRP: [+ prp_cd +]
+
+Others: [+ other_cd +]
+
+**Potential coalitions:**
+
+Weimar Coalition (SPD + Z + DDP): [+ weimar_coalition +]
+
+Grand Coalition (SPD + Z + BVP + DDP + DVP): [+ grand_coalition +]
+
+Bourgeois Coalition (Z + BVP + DDP + DVP + Others): [+ bourgeois_coalition +]
+
+Right-wing Coalition (Z + BVP + DVP + Others + DNVP): [+ right_coalition +]
+
