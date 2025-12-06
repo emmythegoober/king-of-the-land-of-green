@@ -16,13 +16,13 @@ function addMonths(date, months) {
 d3.linegraph = function(noTicks, noDots, parties, partyColors, partyNames, dataMax, dataMin, additionalMonths) {
     /* params */
     if (!parties) {
-        parties = ['ptb', 'psd', 'udn', 'psp', 'pdc', 'ptn', 'prp', 'other'];
+        parties = ['pmdb', 'pds', 'pdt', 'ptb', 'pt', 'other'];
     }
     if (!partyColors) {
-        partyColors = {'ptb': '#E3000F', 'psd': '#8B0000', 'udn': '#DCCA4A', 'psp': '#000', 'pdc': '#D5AC27', 'ptn': '#3f7bc1', 'prp': '#954B00', 'other': '#a0a0a0'};
+        partyColors = {'pmdb': '#E3000F', 'pds': '#8B0000', 'pdt': '#DCCA4A', 'ptb': '#000', 'pt': '#D5AC27', 'other': '#a0a0a0'};
     }
     if (!partyNames) {
-        partyNames = {'ptb': 'PTB', 'psd': 'PSD', 'udn': 'UDN', 'psp': 'PSP', 'pdc': 'PDC', 'ptn': 'PTN', 'prp': 'PRP', 'other': 'Others'};
+        partyNames = {'pmdb': 'PMDB', 'pds': 'PDS', 'pdt': 'PDT', 'ptb': 'PTB', 'pt': 'PT', 'other': 'Others'};
     }
     if (!additionalMonths) {
         additionalMonths = 10;
