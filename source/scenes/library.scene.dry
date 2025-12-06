@@ -263,15 +263,21 @@ on-display: {!
 data = [
     {
         "id": "pmdb",
-        "legend": "pmdb",
-        "name": "pmdb",
+        "legend": "PMDB",
+        "name": "PMDB",
         "seats": Math.round(Q.pmdb_cd*4.09),
     },
     {
         "id": "pds",
-        "legend": "pds",
-        "name": "pds",
+        "legend": "PDS",
+        "name": "PDS",
         "seats": Math.round(Q.pds_cd*4.09),
+    },
+    {
+        "id": "pdt",
+        "legend": "PDT",
+        "name": "PDT",
+        "seats": Math.round(Q.pdt_cd*4.09),
     },
     {
         "id": "ptb",
@@ -284,12 +290,6 @@ data = [
         "legend": "PT",
         "name": "PT",
         "seats": Math.round(Q.pt_cd*4.09),
-    },
-    {
-        "id": "pdt",
-        "legend": "PDT",
-        "name": "PDT",
-        "seats": Math.round(Q.pdt_cd*4.09),
     },
     {
         "id": "other",
