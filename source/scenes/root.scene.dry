@@ -208,12 +208,12 @@ Q.immigrants_other = 5;
 // Current Câmara dos Deputados composition
 // % of CD in Jan 1985
 // source: wikipedia
-Q.pmdb_cd = 25;
-Q.pds_cd = 30;
-Q.pdt_cd = 22;
-Q.ptb_cd = 5;
-Q.pt_cd = 7;
-Q.other_cd = 11;
+Q.pmdb_cd = 20;
+Q.pds_cd = 20;
+Q.pdt_cd = 20;
+Q.ptb_cd = 20;
+Q.pt_cd = 19;
+Q.other_cd = 1;
 
 
 // diff from prev

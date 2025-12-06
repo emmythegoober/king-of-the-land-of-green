@@ -317,7 +317,8 @@ if (d3 && window) {
     var lines = d3.linegraph(false, false,
             Q.parties,
             {'pmdb': '#ef233c', 'pds': '#ffba08', 'pdt': '#2c118d', 'ptb': '#533e40', 'pt': '#036ab2', 'other': '#adb5bd'},
-            {'pmdb': 'PMDB', 'pds': 'PDS', 'pdt': 'PDT', 'ptb': 'PTB', 'pt': 'PT', 'other': 'Others'});    lines.width(width).height(400);
+            {'pmdb': 'PMDB', 'pds': 'PDS', 'pdt': 'PDT', 'ptb': 'PTB', 'pt': 'PT', 'other': 'Others'});    
+            lines.width(width).height(400);
     //var svg = lines(Q.election_records);
     if (Q.election_records.length > 0) {
         d3.select("#election_history").datum(Q.election_records).call(lines);
@@ -328,7 +329,7 @@ if (d3 && window) {
     if (!Q.historical_mode || Q.game_over) {
         var lines_2 = d3.linegraph(true, true,
             Q.parties,
-            {'pmdb': '#ef233c', 'pds': '#ffba08', 'pdt': '#2c118d', 'ptb': '#533e40', 'pt': '#036ab2', 'other': '#adb5bd'},
+           {'pmdb': '#ef233c', 'pds': '#ffba08', 'pdt': '#2c118d', 'ptb': '#533e40', 'pt': '#036ab2', 'other': '#adb5bd'},
             {'pmdb': 'PMDB', 'pds': 'PDS', 'pdt': 'PDT', 'ptb': 'PTB', 'pt': 'PT', 'other': 'Others'});
         lines_2.width(width).height(400);
         d3.select("#party_support_history").datum(Q.party_support_records).call(lines_2);
